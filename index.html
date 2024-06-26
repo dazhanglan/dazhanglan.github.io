@@ -1,1 +1,72 @@
-1344746
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bypass Portal</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: url('https://media.giphy.com/media/3o72FkiKGMGauydfyg/giphy.gif') no-repeat center center fixed; 
+            background-size: cover;
+            font-family: Arial, sans-serif;
+            color: #fff;
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+        .input-box {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        input {
+            width: 300px;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: none;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background: #ff6347;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background: #e5533d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="input-box">
+            <h1>绕过入口</h1>
+            <input type="text" id="linkInput" placeholder="输入解卡密链接">
+            <button onclick="executeBypass()">执行绕过</button>
+        </div>
+    </div>
+
+    <script>
+        function executeBypass() {
+            const link = document.getElementById('linkInput').value;
+            if (link) {
+                alert(`正在执行绕过：${link}`);
+        
+            } else {
+                alert('请输入一个有效的解卡密链接');
+            }
+        }
+    </script>
+</body>
+</html>

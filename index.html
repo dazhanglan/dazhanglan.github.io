@@ -28,7 +28,7 @@
         function fetchContent() {
             const url = document.getElementById('urlInput').value;
             const prefix = 'https://flux.li/android/external/start.php?HWID=';
-            
+
             if (url.startsWith(prefix)) {
                 fetch(`https://bypass-beta.vercel.app/api/fluxus?url=${encodeURIComponent(url)}`)
                     .then(response => response.json())

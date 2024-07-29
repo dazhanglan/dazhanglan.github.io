@@ -27,15 +27,21 @@
     <script>
         function fetchContent() {
             const url = document.getElementById('urlInput').value;
-            fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`)
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById('result').textContent = data.contents;
-                })
-                .catch(error => {
-                    document.getElementById('result').textContent = 'Error fetching content.';
-                    console.error('Error:', error);
-                });
+            const prefix = 'https://flux.li/android/external/start.php?HWID=';
+            
+            if (url.startsWith(prefix)) {
+                fetch(`https://bypass-beta.vercel.app/api/fluxus?url=${encodeURIComponent(url)}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById('result').textContent = data.contents;
+                    })
+                    .catch(error => {
+                        document.getElementById('result').textContent = 'Error fetching content.';
+                        console.error('Error:', error);
+                    });
+            } else {
+                document.getElementById('result').textContent = 'Invalid URL. Please ensure it starts with "https://flux.li/android/external/start.php?HWID="';
+            }
         }
     </script>
 </body>

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fetch Webpage Content</title>
+    <title>获取网页内容</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -19,23 +19,29 @@
     </style>
 </head>
 <body>
-    <h1>Fetch Webpage Content</h1>
-    <input type="text" id="urlInput" placeholder="Enter URL" size="50">
-    <button onclick="fetchContent()">Fetch Content</button>
+    <h1>获取网页内容</h1>
+    <input type="text" id="urlInput" placeholder="请输入链接" size="50">
+    <button onclick="fetchContent()">获取内容</button>
     <div id="result"></div>
 
     <script>
         function fetchContent() {
             const url = document.getElementById('urlInput').value;
-            fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`)
-                .then(response => response.json())
-                .then(data => {
-                    document.getElementById('result').textContent = data.contents;
-                })
-                .catch(error => {
-                    document.getElementById('result').textContent = 'Error fetching content.';
-                    console.error('Error:', error);
-                });
+            const apiUrl = `https://bypass-beta.vercel.app/api/fluxus?url=${encodeURIComponent(url)}`;
+
+            if (url.startsWith('https://flux.li/android/external/start.php?HWID=')) {
+                fetch(apiUrl)
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById('result').textContent = data.contents;
+                    })
+                    .catch(error => {
+                        document.getElementById('result').textContent = '获取内容时出错。';
+                        console.error('错误:', error);
+                    });
+            } else {
+                document.getElementById('result').textContent = '不支持此链接。';
+            }
         }
     </script>
 </body>

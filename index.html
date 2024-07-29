@@ -1,67 +1,41 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HWID 检查器</title>
+    <title>Fetch Webpage Content</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
         }
-        input, button {
-            margin: 5px 0;
-        }
-        #response {
-            margin-top: 10px;
-            white-space: pre-wrap; /* 保持格式 */
+        #result {
+            margin-top: 20px;
+            border: 1px solid #ddd;
+            padding: 10px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
         }
     </style>
 </head>
 <body>
-    <h1>HWID 检查器</h1>
-    <input type="text" id="hwidInput" placeholder="输入 HWID 链接">
-    <button onclick="checkHWID()">检查 HWID</button>
-    <div id="response"></div>
+    <h1>Fetch Webpage Content</h1>
+    <input type="text" id="urlInput" placeholder="Enter URL" size="50">
+    <button onclick="fetchContent()">Fetch Content</button>
+    <div id="result"></div>
 
     <script>
-        function checkHWID() {
-            const hwidUrl = document.getElementById('hwidInput').value;
-            if (!hwidUrl) {
-                document.getElementById('response').innerText = '请输入 HWID 链接';
-                return;
-            }
-
-            const urlParams = new URLSearchParams(new URL(hwidUrl).search);
-            const HWID = urlParams.get('HWID');
-
-            if (HWID) {
-                const apiUrl = `https://bypass-beta.vercel.app/api/fluxus?url=${encodeURIComponent(hwidUrl)}`;
-
-                fetch(apiUrl)
-                    .then(response => response.text())
-                    .then(data => {
-                        document.getElementById('response').innerText = data;
-
-                        // Copy the response to clipboard
-                        if (navigator.clipboard) {
-                            navigator.clipboard.writeText(data).then(() => {
-                                console.log('响应内容已复制到剪贴板');
-                            }).catch(err => {
-                                console.error('复制到剪贴板失败:', err);
-                            });
-                        } else {
-                            // Fallback if Clipboard API is not available
-                            console.log('Clipboard API 不可用，未复制内容');
-                        }
-                    })
-                    .catch(error => {
-                        console.error('请求失败:', error);
-                        document.getElementById('response').innerText = '请求失败: ' + error.message;
-                    });
-            } else {
-                document.getElementById('response').innerText = '无法提取 HWID';
-            }
+        function fetchContent() {
+            const url = document.getElementById('urlInput').value;
+            fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(url)}`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('result').textContent = data.contents;
+                })
+                .catch(error => {
+                    document.getElementById('result').textContent = 'Error fetching content.';
+                    console.error('Error:', error);
+                });
         }
     </script>
 </body>

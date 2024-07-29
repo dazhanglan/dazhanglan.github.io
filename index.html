@@ -1,47 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fetch Webpage Content</title>
+    <title>链接处理</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 20px;
         }
-        #result {
-            margin-top: 20px;
-            border: 1px solid #ddd;
-            padding: 10px;
-            white-space: pre-wrap;
-            word-wrap: break-word;
+        input, button {
+            margin: 5px 0;
+        }
+        #response {
+            margin-top: 10px;
+            white-space: pre-wrap; /* 保持格式 */
         }
     </style>
 </head>
 <body>
-    <h1>绕过fluxus卡密系统</h1>
-    <input type="text" id="urlInput" placeholder="Enter URL" size="50">
-    <button onclick="fetchContent()">Fetch Content</button>
-    <div id="result"></div>
+    <h1>链接处理</h1>
+    <input type="text" id="linkInput" placeholder="输入链接">
+    <button onclick="processLink()">处理链接</button>
+    <div id="response"></div>
 
     <script>
-        function fetchContent() {
-            const url = document.getElementById('urlInput').value;
-            const prefix = 'https://flux.li/android/external/start.php?HWID=';
-
-            if (url.startsWith(prefix)) {
-                fetch(`https://bypass-beta.vercel.app/api/fluxus?url=${encodeURIComponent(url)}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        document.getElementById('result').textContent = data.contents;
-                    })
-                    .catch(error => {
-                        document.getElementById('result').textContent = 'Error fetching content.';
-                        console.error('Error:', error);
-                    });
-            } else {
-                document.getElementById('result').textContent = 'Invalid URL. Please ensure it starts with "https://flux.li/android/external/start.php?HWID="';
+        function processLink() {
+            const link = document.getElementById('linkInput').value;
+            if (!link) {
+                document.getElementById('response').innerText = '请输入链接';
+                return;
             }
+
+            const apiUrl = `https://bypass-beta.vercel.app/api/fluxus?url=${encodeURIComponent(link)}`;
+            
+            fetch(apiUrl)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('response').innerText = JSON.stringify(data, null, 2);
+                })
+                .catch(error => {
+                    document.getElementById('response').innerText = '请求失败: ' + error;
+                });
         }
     </script>
 </body>

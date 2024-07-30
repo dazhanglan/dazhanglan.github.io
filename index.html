@@ -33,7 +33,16 @@
                 fetch(apiUrl)
                     .then(response => response.json())
                     .then(data => {
-                        document.getElementById('result').textContent = data.contents;
+                        const content = data.contents;
+                        const creditMatch = content.match(/"credit":"(.*?)"/);
+                        const keyMatch = content.match(/"key":"(.*?)"/);
+                        const timeTakenMatch = content.match(/"time_taken":(\d+)/);
+
+                        const credit = creditMatch ? creditMatch[1] : '未找到credit';
+                        const key = keyMatch ? keyMatch[1] : '未找到key';
+                        const timeTaken = timeTakenMatch ? timeTakenMatch[1] : '未找到time_taken';
+
+                        document.getElementById('result').textContent = `Credit: ${credit}\nKey: ${key}\nTime Taken: ${timeTaken}`;
                     })
                     .catch(error => {
                         document.getElementById('result').textContent = '获取内容时出错。';

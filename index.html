@@ -27,7 +27,7 @@
     <script>
         function fetchContent() {
             const url = document.getElementById('urlInput').value;
-            const apiUrl = `https://bypass-beta.vercel.app/api/fluxus?url=${encodeURIComponent(url)}`;
+            const apiUrl = `https://api.allorigins.win/get?url=https://bypass-beta.vercel.app/api/fluxus?url=${encodeURIComponent(url)}`;
 
             if (url.startsWith('https://flux.li/android/external/start.php?HWID=')) {
                 fetch(apiUrl)

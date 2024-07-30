@@ -33,11 +33,7 @@
                 fetch(apiUrl)
                     .then(response => response.json())
                     .then(data => {
-                        if (data.key) {
-                            document.getElementById('result').textContent = data.key;
-                        } else {
-                            document.getElementById('result').textContent = '响应中不包含key。';
-                        }
+                        document.getElementById('result').textContent = JSON.stringify(data);
                     })
                     .catch(error => {
                         document.getElementById('result').textContent = '获取内容时出错。';

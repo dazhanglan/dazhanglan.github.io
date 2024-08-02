@@ -1,4 +1,4 @@
-
+<!DOCTYPE html>
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
@@ -7,22 +7,72 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 20px;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 80%;
+            max-width: 600px;
+            background: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        h1 {
+            margin: 0;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #007bff;
+            font-size: 24px;
+            color: #333;
+            text-align: center;
+        }
+        input[type="text"] {
+            width: calc(100% - 120px);
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            background-color: #007bff;
+            color: #ffffff;
+            font-size: 16px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        button:hover {
+            background-color: #0056b3;
         }
         #result {
             margin-top: 20px;
-            border: 1px solid #ddd;
             padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: #fafafa;
             white-space: pre-wrap;
             word-wrap: break-word;
+            text-align: center;
         }
     </style>
 </head>
 <body>
-    <h1>FLUXUS绕过</h1>
-    <input type="text" id="urlInput" placeholder="请输入链接" size="50">
-    <button onclick="fetchContent()">开始绕过</button>
-    <div id="result"></div>
+    <div class="container">
+        <h1>FLUXUS绕过</h1>
+        <div style="display: flex; justify-content: center; align-items: center;">
+            <input type="text" id="urlInput" placeholder="请输入链接" size="50">
+            <button onclick="fetchContent()">开始绕过</button>
+        </div>
+        <div id="result"></div>
+    </div>
 
     <script>
         function fetchContent() {

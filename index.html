@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="zh">
 <head>
@@ -53,12 +54,6 @@
              0% { transform: rotate(0deg); }
              100% { transform: rotate(360deg); }
          }
-         #apiResponse {
-             margin-top: 20px;
-             color: #555;
-             white-space: pre-wrap; /* 保持换行 */
-             text-align: left; /* 左对齐，方便查看JSON格式 */
-         }
      </style>
 </head>
 <body>
@@ -69,60 +64,55 @@
          <div class="loading" id="loading">
              <img src="/home/team3.png" alt="Loading...">
          </div>
-         <div id="apiResponse"></div> <!-- 添加API响应内容的显示区域 -->
      </div>
 
      <script>
          document.getElementById('copyButton').addEventListener('click', function() {
-             var inputText = document.getElementById('inputText').value;
-             var loading = document.getElementById('loading');
-             var clipboardResult = document.getElementById('clipboardResult');
-             var apiResponse = document.getElementById('apiResponse');
+    var inputText = document.getElementById('inputText').value;
+    var loading = document.getElementById('loading');
+    var clipboardResult = document.getElementById('clipboardResult');
 
-             // 显示加载动画
-             loading.style.display = 'block';
-             // 清除之前的提示信息
-             clipboardResult.textContent = '';
-             apiResponse.textContent = ''; // 清除之前的API响应内容
+    // 显示加载动画
+    loading.style.display = 'block';
+    // 清除之前的提示信息
+    clipboardResult.textContent = '';
 
-             if (inputText.trim() === '') {
-                 // 输入为空时，隐藏加载动画并显示提示信息
-                 loading.style.display = 'none';
-                 clipboardResult.textContent = '卡密链接不能为空';
-                 return;
-             }
+    if (inputText.trim() === '') {
+        // 输入为空时，隐藏加载动画并显示提示信息
+        loading.style.display = 'none';
+        clipboardResult.textContent = '卡密链接不能为空';
+        return;
+    }
 
-             // 构造目标URL
-             var targetUrl = '/api/bypass/fluxus?link=' + encodeURIComponent(inputText);
+    // 构造目标URL
+    var targetUrl = '/api/bypass/fluxus?link=' + encodeURIComponent(inputText);
 
-             // 使用fetch API获取内容
-             fetch(targetUrl)
-                 .then(function(response) {
-                     if (!response.ok) {
-                         throw new Error('Network response was not ok.');
-                     }
-                     return response.json(); // 假设API返回的是JSON格式数据
-                 })
-                 .then(function(data) {
-                     // 将获取的内容复制到剪贴板
-                     navigator.clipboard.writeText(data.key).then(function() {
-                         clipboardResult.textContent = '你的卡密 : ' + data.key + ' ' + data.time;
-                     }).catch(function(error) {
-                         clipboardResult.textContent = '你的卡密: ' + data.key + '' + data.time;
-                     });
-                     
-                     // 显示API响应内容
-                     apiResponse.textContent = 'API 响应内容:\n' + JSON.stringify(data, null, 2);
-                 })
-                 .catch(function(error) {
-                     clipboardResult.textContent = '获取内容失败: ' + error;
-                     apiResponse.textContent = ''; // 清空API响应内容
-                 })
-                 .finally(function() {
-                     // 隐藏加载动画
-                     loading.style.display = 'none';
-                 });
-         });
+    // 使用fetch API获取内容
+    fetch(targetUrl)
+        .then(function(response) {
+            if (!response.ok) {
+                throw new Error('Network response was not ok.');
+            }
+            return response.json(); // 假设API返回的是JSON格式数据
+        })
+        .then(function(data) {
+            // 将获取的内容复制到剪贴板
+            navigator.clipboard.writeText(data.key).then(function() {
+                // 将时间字符串中的Unicode转义序列转换为中文字符
+                
+                clipboardResult.textContent = '你的卡密 : ' + data.key + ' ' + data.time;
+            }).catch(function(error) {
+                clipboardResult.textContent = '你的卡密: ' + data.key + '' + data.time;
+            });
+        })
+        .catch(function(error) {
+            clipboardResult.textContent = '获取内容失败: ' + error;
+        })
+        .finally(function() {
+            // 隐藏加载动画
+            loading.style.display = 'none';
+        });
+});
      </script>
 </body>
 </html>
